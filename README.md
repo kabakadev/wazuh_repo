@@ -147,10 +147,6 @@ Cleanup happens after evidence is saved and after judges' inspection if they may
 4. In the dashboard, search `data.win.system.eventID:7045` for the agent and check the rule ID of each alert.
 5. Clean up using the commands above.
 
-## AI assistance disclosure (draft: edit so it is accurate)
-
-An AI assistant (Claude) helped with explaining Wazuh concepts, drafting and reviewing the W3B rule, troubleshooting the agent connection and drafting this README. Lab setup steps and the first draft of the W1B plan came from an earlier AI chat session. I ran all tests myself in the lab and I can explain every rule. One AI-drafted detail was corrected from real data: the path-matching pattern originally missed the `\SystemRoot\` form and the doubled backslashes. No credentials or sensitive logs were sent to the AI tool. [Confirm that last sentence is true before keeping it.]
-
 ## Evidence index
 
 | Evidence | Location |
