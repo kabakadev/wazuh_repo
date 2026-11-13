@@ -41,7 +41,56 @@ No real passwords, tokens or private network details are committed. The lab test
 
 **Background.** Event 4625 means "an account failed to log on". One failure is usually a typo. Many from one source in a short time can indicate password guessing. Failures alone do not prove a breach.
 
-**Rule:** [Paste the exact contents of the W1B rules from `/var/ossec/etc/rules/local_rules.xml`. To print them on the manager, run `grep -n -A12 'id="1001' /var/ossec/etc/rules/local_rules.xml`.]
+**Rule:** 
+[root@wazuh-server ~]# cat /var/ossec/etc/rules/local_rules.xml
+<!-- Local rules -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!-- Example -->
+<group name="local,syslog,sshd,">
+
+  <!--
+  Dec 10 01:02:02 host sshd[1234]: Failed none for root from 1.1.1.1 port 1066 ssh2
+  -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+</group>
+<group name="local,windows,authentication_failures,">
+
+  <rule id="100100" level="3">
+    <if_sid>60122</if_sid>
+    <field name="win.eventdata.ipAddress" negate="yes" type="pcre2">^(-|::1|127\.0\.0\.1)?$</field>
+    <description>Windows: failed logon for $(win.eventdata.targetUserName) from $(win.eventdata.ipAddress)</description>
+  </rule>
+
+  <rule id="100101" level="10" frequency="5" timeframe="120">
+    <if_matched_sid>100100</if_matched_sid>
+    <same_field>win.eventdata.ipAddress</same_field>
+    <description>Windows: possible brute force - repeated failed logons from $(win.eventdata.ipAddress), last account $(win.eventdata.targetUserName)</description>
+    <mitre><id>T1110.001</id></mitre>
+  </rule>
+
+</group>
+<group name="local,test,">
+  <rule id="100900" level="3">
+    <field name="win.system.eventID">^4625$</field>
+    <field name="win.eventdata.ipAddress" negate="yes" type="pcre2">^(-|::1|127\.0\.0\.1)?$</field>
+    <description>TEST: failed logon for $(win.eventdata.targetUserName) from $(win.eventdata.ipAddress)</description>
+  </rule>
+  <rule id="100901" level="10" frequency="5" timeframe="120">
+    <if_matched_sid>100900</if_matched_sid>
+    <same_field>win.eventdata.ipAddress</same_field>
+    <description>TEST: repeated failed logons from $(win.eventdata.ipAddress), last account $(win.eventdata.targetUserName)</description>
+  </rule>
+</group>
+[root@wazuh-server ~]#
 
 **How the rule works:** [2 to 4 sentences in your own words: what the parent rule matches, what `frequency` and `timeframe` mean, and why the rule groups by source IP.]
 
