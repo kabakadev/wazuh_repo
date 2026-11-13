@@ -147,12 +147,3 @@ Cleanup happens after evidence is saved and after judges' inspection if they may
 4. In the dashboard, search `data.win.system.eventID:7045` for the agent and check the rule ID of each alert.
 5. Clean up using the commands above.
 
-## Evidence index
-
-| Evidence | Location |
-|---|---|
-| Agent Active on the Agents page | `evidence/W1B/` [file] |
-| W1B alerts and raw 4625 events | `evidence/W1B/` [files] |
-| W3B alert table screenshot | `evidence/W3B/` [file] |
-| Event Viewer record for `LabTestSvc1` | `evidence/W3B/` [file] |
-| Cleanup proof | `docs/` [file] |
