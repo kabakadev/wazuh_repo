@@ -45,9 +45,7 @@ No real passwords, tokens or private network details are committed. The lab test
 
 **How the rule works:** [2 to 4 sentences in your own words: what the parent rule matches, what `frequency` and `timeframe` mean, and why the rule groups by source IP.]
 
-**Required alert fields:** source IP, username, endpoint, timestamp, rule ID and description. [Confirm each in a screenshot of an expanded alert.]
 
-**Tests** (wait over two minutes between tests so correlation state resets):
 
 | # | Test | Expected | Observed | Evidence |
 |---|---|---|---|---|
