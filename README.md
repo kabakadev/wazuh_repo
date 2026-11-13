@@ -4,7 +4,7 @@
 **Builders :** Ian Kabaka & Ron Murithi
 **Selected cards:** W1B (Too Many Failed Logins) and W3B (A New Program Was Installed)
 
-> Items in [square brackets] are not filled in yet. Replace each one with a real value before submitting.
+
 
 ## SDG statement (draft)
 
